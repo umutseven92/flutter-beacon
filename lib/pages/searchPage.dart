@@ -60,7 +60,7 @@ class SearchPage extends StatelessWidget {
           fit: BoxFit.cover,
         ),
       ),
-      title: Text('$name ($email'),
+      title: Text('$name ($email)'),
       subtitle: Text('${distance.toStringAsFixed(2)} km'),
     );
   }
