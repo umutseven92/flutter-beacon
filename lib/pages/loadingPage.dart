@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_beacon/helpers/helpers.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:blocs/blocs.dart';
 import 'package:flutter_beacon/providers/user_bloc_provider.dart';
 import 'package:flutter_beacon/providers/user_bloc_provider.dart';

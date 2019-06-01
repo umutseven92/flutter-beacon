@@ -38,7 +38,7 @@ class UserBloc {
     _updateCurrentAuthId();
 
 
-    _accountStatusController = Observable.combineLatest2<String, User, UserAccountStatus>(existingAuthId, _currentUserController, _redirectPath).asBroadcastStream();
+    _accountStatusController = Observable.combineLatest2<String, User, UserAccountStatus>(existingAuthId, _currentUserController, _redirectPath).asBroadcastStream().debounce(Duration(milliseconds: 300));
     
     _subscriptions = <StreamSubscription<dynamic>>[
       _logInController.listen(_logInUser),

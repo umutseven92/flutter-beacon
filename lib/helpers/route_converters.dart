@@ -9,9 +9,8 @@ class RouteConverters {
       case UserAccountStatus.LOGGED_OUT:
         return LoginPage();
       case UserAccountStatus.LOGGED_IN:
-        return ProfilePage();
       case UserAccountStatus.PENDING_ONBOARDING:
-        return NewAccountPage();
+        return MapPage();
       default:
         return null;
     }

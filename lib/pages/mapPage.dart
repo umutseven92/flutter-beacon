@@ -2,10 +2,14 @@ import 'dart:collection';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_beacon/pages/searchPage.dart';
+import 'package:flutter_beacon/pages/pages.dart';
 import 'package:flutter_beacon/static/mockData.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapPage extends StatelessWidget {
+
+  
+
   Set<Marker> _createMarkers(List<User> users) {
     Set<Marker> mockSet = Set();
 
@@ -24,6 +28,11 @@ class MapPage extends StatelessWidget {
     return mockSet;
   }
 
+  void _navigateToProfilePage(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) => ProfilePage()),
+    );
+  }
   void _navigateToSearchPage(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(builder: (context) => SearchPage()),
