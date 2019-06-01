@@ -1,4 +1,4 @@
-class User {
+class User{
 
 
   String uid, name, profilePicUrl, email, country, bio;

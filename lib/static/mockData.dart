@@ -6,7 +6,7 @@ class MockData {
   static List<User> getMockUsers() {
     var users = <User>[];
 
-    for (int i = 0; i < 1000; i++) {
+    for (int i = 0; i < 2000; i++) {
       var rand = Random();
       var randomUser = User(
           '$i',

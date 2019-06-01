@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:blocs/blocs.dart';
+import 'package:flutter_beacon/providers/user_bloc_provider.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -8,27 +10,41 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   final profilePicUrl = 'https://pbs.twimg.com/media/DZZmAyxW4AAJHrn.jpg';
   
+  UserBloc _userBloc;
   @override
   Widget build(BuildContext context) {
+    _initBloc();
     return Scaffold(
       appBar: AppBar(
         title: Text('Profile'),
+        actions: <Widget>[
+          IconButton(icon: Icon(Icons.close),onPressed: () {
+            _userBloc.logOut.add(null);
+          },)
+        ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            _profilePic(),
-            _names(),
-            _overallStatistics(),
-            _displayBio(),
-            _recentActivity(),
-            _projects(),
-          ],
-        ),
+      body: ListView(
+              children:[ Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              _profilePic(),
+              _names(),
+              _overallStatistics(),
+              _displayBio(),
+              _recentActivity(),
+            ],
+          ),
+        ),]
       ),
     );
+  }
+
+  _initBloc() {
+    if(_userBloc == null){
+      _userBloc = UserBlocProvider.of(context);
+    }
   }
 
   Widget _profilePic() {
@@ -149,28 +165,6 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  Widget _projects(){
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        _header('Projects'),
-        _loadProjects(),
-      ],
-    );
-  }
-
-  Widget _loadProjects() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Center(
-        child: Text(
-          'This user has no projects yet',
-          style: Theme.of(context).textTheme.caption,
-        ),
-      ),
-    );
-  }
 
   Widget _header(String title) {
     return Padding(
