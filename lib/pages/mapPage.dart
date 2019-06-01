@@ -48,7 +48,7 @@ class MapPage extends StatelessWidget {
         ),
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.search),
+            icon: Icon(Icons.contacts),
             onPressed: () => _navigateToSearchPage(context),
           )
         ],
