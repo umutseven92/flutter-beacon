@@ -4,44 +4,35 @@ import 'package:flutter/material.dart';
 import 'package:flutter_beacon/pages/searchPage.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+class _User {
+  final String id;
+  final String name;
+  final String profilePic;
+  final String email;
+  final LatLng latLng;
+  final String country;
+  final bool isActive;
+  final String bio;
+
+  _User(this.id, this.name, this.profilePic, this.email, this.latLng,
+      this.country, this.isActive, this.bio);
+}
+
 class MapPage extends StatelessWidget {
-  Set<Marker> _createMockMarkerSet() {
-    Set<Marker> mockSet = Set()
-      ..add(Marker(
-          markerId: MarkerId('Marker1'),
-          position: LatLng(51.531888, -0.118813),
+  Set<Marker> _createMarkers(List<_User> users) {
+    Set<Marker> mockSet = Set();
+
+    users.forEach((user) {
+      mockSet.add(Marker(
+          icon: !user.isActive
+              ? BitmapDescriptor.defaultMarker
+              : BitmapDescriptor.defaultMarkerWithHue(
+                  BitmapDescriptor.hueGreen),
+          markerId: MarkerId(user.id),
+          position: user.latLng,
           infoWindow: InfoWindow(
-              title: 'User Name',
-              snippet:
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.')))
-      ..add(Marker(
-          markerId: MarkerId('Marker2'),
-          position: LatLng(51.513711, -0.127904),
-          infoWindow: InfoWindow(
-              title: 'User Name',
-              snippet:
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.')))
-      ..add(Marker(
-          markerId: MarkerId('Marker3'),
-          position: LatLng(51.495740, -0.134286),
-          infoWindow: InfoWindow(
-              title: 'User Name',
-              snippet:
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.')))
-      ..add(Marker(
-          markerId: MarkerId('Marker4'),
-          position: LatLng(51.405402, -0.713446),
-          infoWindow: InfoWindow(
-              title: 'User Name',
-              snippet:
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.')))
-      ..add(Marker(
-          markerId: MarkerId('Marker5'),
-          position: LatLng(51.451142, -2.639136),
-          infoWindow: InfoWindow(
-              title: 'User Name',
-              snippet:
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.')));
+              title: '${user.name} (${user.email})', snippet: user.bio)));
+    });
 
     return mockSet;
   }
@@ -54,6 +45,12 @@ class MapPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var users = <_User>[]
+      ..add(_User('1', 'Umut Seven', '', 'umutseven92@gmail.com',
+          LatLng(51.531913, -0.118822), 'UK', true, 'Lorem Ipsum'))
+      ..add(_User('2', 'Eric Clapton', '', 'ericclapton@gmail.com',
+          LatLng(51.530925, -0.122309), 'UK', false, 'Lorem Ipsum'));
+
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton.extended(
@@ -77,7 +74,7 @@ class MapPage extends StatelessWidget {
         children: <Widget>[
           Container(
             child: GoogleMap(
-              markers: _createMockMarkerSet(),
+              markers: _createMarkers(users),
               mapType: MapType.normal,
               initialCameraPosition: CameraPosition(
                   target: LatLng(51.531888, -0.118813), zoom: 15),
@@ -85,21 +82,18 @@ class MapPage extends StatelessWidget {
           ),
           Align(
             alignment: Alignment.topCenter,
-            
-            child:
-              Container(
-                width: 150,
-                height: 60,
-                child: Card(
-                  child: Center(
-                      child: Text(
-                    '300 active',
-                    style: TextStyle(fontSize: 22),
-                  )),
-                ),
+            child: Container(
+              width: 150,
+              height: 60,
+              child: Card(
+                child: Center(
+                    child: Text(
+                  '${users.where((user) => user.isActive).length} active',
+                  style: TextStyle(fontSize: 22),
+                )),
               ),
             ),
-          
+          ),
         ],
       ),
     );
