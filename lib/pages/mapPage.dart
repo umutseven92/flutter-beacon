@@ -2,24 +2,11 @@ import 'dart:collection';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_beacon/pages/searchPage.dart';
+import 'package:flutter_beacon/static/mockData.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class _User {
-  final String id;
-  final String name;
-  final String profilePic;
-  final String email;
-  final LatLng latLng;
-  final String country;
-  final bool isActive;
-  final String bio;
-
-  _User(this.id, this.name, this.profilePic, this.email, this.latLng,
-      this.country, this.isActive, this.bio);
-}
-
 class MapPage extends StatelessWidget {
-  Set<Marker> _createMarkers(List<_User> users) {
+  Set<Marker> _createMarkers(List<User> users) {
     Set<Marker> mockSet = Set();
 
     users.forEach((user) {
@@ -45,11 +32,7 @@ class MapPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var users = <_User>[]
-      ..add(_User('1', 'Umut Seven', '', 'umutseven92@gmail.com',
-          LatLng(51.531913, -0.118822), 'UK', true, 'Lorem Ipsum'))
-      ..add(_User('2', 'Eric Clapton', '', 'ericclapton@gmail.com',
-          LatLng(51.530925, -0.122309), 'UK', false, 'Lorem Ipsum'));
+    var users = MockData.getMockUsers();
 
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
