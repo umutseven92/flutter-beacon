@@ -1,0 +1,20 @@
+name: back_end_impl
+description: A reactive implementation of the repository for Flutter using firebase
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  middleware:
+    path: ../middleware
+# Firebase services    
+  # cloud_functions: ^0.0.5
+  # firebase_auth: ^0.6.6
+  # firebase_messaging: ^2.1.0
+  # cloud_firestore: ^0.8.2
+  cloud_functions: ^0.4.0
+  firebase_auth: ^0.11.1+5
+  cloud_firestore: ^0.12.1
+  
+
+flutter:

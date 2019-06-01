@@ -1,0 +1,12 @@
+name: middleware
+description: An app-agnostic data source that can be used by all implementations
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  meta:
+  html_unescape: ^1.0.1+2
+
+dev_dependencies:
+  mockito: ^3.0.0
